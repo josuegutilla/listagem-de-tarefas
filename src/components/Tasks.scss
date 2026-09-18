@@ -1,36 +1,151 @@
+@use "../styles/variables" as *;
+
 .tasks-container {
-    padding: 60px 85px;
+    width: min(100%, 680px);
+    margin: 0 auto;
+    padding: 72px 24px 88px;
     display: flex;
     flex-direction: column;
-    max-width: 40%;
-    padding-top: 50px;
-    height: 100vh;
+    gap: 24px;
 
-    h2 {
-        margin-bottom: 24px;
+    > h2 {
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        background: linear-gradient(115deg, $texto 25%, $verde-400 105%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+.last-tasks,
+.completed-tasks {
+    position: relative;
+    overflow: hidden;
+    padding: 26px;
+    border: 1px solid $borda;
+    border-radius: $raio-lg;
+    background: $superficie;
+    backdrop-filter: blur(16px);
+    box-shadow: $sombra;
+
+    // fio de luz na borda superior do cartão
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(52, 211, 153, 0.55),
+            transparent
+        );
     }
 
     h3 {
-        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: $texto-suave;
+
+        // bolinha pulsante antes do título
+        &::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $verde-400;
+            box-shadow: 0 0 12px $verde-400;
+            animation: pulsar 2.4s ease-in-out infinite;
+        }
     }
 
-    .last-tasks {
-        flex: 1;
-        overflow-y: hidden;
+    .task-list {
         display: flex;
         flex-direction: column;
+        gap: 10px;
+        max-height: 330px;
+        overflow-y: auto;
+        padding-right: 6px;
 
-        .task-list {
-            margin-top: 28px;
+        // estado vazio sem precisar mexer no JSX
+        &:empty::after {
+            content: "Nada por aqui ainda.";
+            display: block;
+            padding: 26px 0;
+            text-align: center;
+            font-size: 14px;
+            color: $texto-fraco;
+        }
+
+        scrollbar-width: thin;
+        scrollbar-color: rgba(52, 211, 153, 0.25) transparent;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(52, 211, 153, 0.25);
+            border-radius: 999px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: $verde-500;
+        }
+    }
+}
+
+@keyframes pulsar {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
+}
+
+// concluídas ficam em segundo plano e sem o pulso
+.completed-tasks {
+    h3::before {
+        background: $verde-700;
+        box-shadow: none;
+        animation: none;
+    }
+
+    .task-item-container {
+        opacity: 0.6;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .tasks-container {
+        padding: 40px 16px 60px;
+        gap: 16px;
+
+        > h2 {
+            font-size: 27px;
         }
     }
 
+    .last-tasks,
     .completed-tasks {
-        flex: 1;
-        padding-top: 28px;
-
-        .task-list {
-            margin-top: 28px;
-        }
+        padding: 18px 16px;
+        border-radius: $raio;
     }
 }

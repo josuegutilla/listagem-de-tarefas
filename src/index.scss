@@ -1,16 +1,44 @@
-$background-color: linear-gradient(259.93deg, #000000 -41.68%, #00171f 146.85%);
-$primary-text-color: #fff;
+@use "./styles/variables" as *;
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
     min-height: 100vh;
-    font-family: "Archivo", sans-serif;
-    background: $background-color;
-    color: $primary-text-color;
+    font-family: $fonte;
+    color: $texto;
+    background-color: $fundo;
+    // dois halos difusos de verde, um no topo e outro no canto inferior
+    background-image:
+        radial-gradient(
+            820px 440px at 50% -12%,
+            rgba(16, 185, 129, 0.16),
+            transparent 70%
+        ),
+        radial-gradient(
+            620px 420px at 100% 105%,
+            rgba(5, 150, 105, 0.09),
+            transparent 70%
+        );
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: rgba(16, 185, 129, 0.35);
+    color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }

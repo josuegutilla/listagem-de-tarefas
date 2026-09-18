@@ -1,0 +1,54 @@
+@use "../styles/variables" as *;
+
+.input-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+
+    .custom-input {
+        width: 100%;
+        // padding-top maior reserva o espaço onde o label sobe
+        padding: 22px 16px 8px;
+        border: 1px solid $borda;
+        border-radius: $raio;
+        background: $superficie-2;
+        color: $texto;
+        font-family: inherit;
+        font-size: 15px;
+        transition:
+            border-color $transicao,
+            background $transicao,
+            box-shadow $transicao;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $verde-400;
+            background: $superficie-hover;
+            box-shadow: $brilho-suave;
+        }
+    }
+
+    .custom-input-label {
+        position: absolute;
+        top: 15px;
+        left: 17px;
+        font-size: 15px;
+        color: $texto-fraco;
+        pointer-events: none; // o clique atravessa e chega no input
+        transform-origin: left top;
+        transition:
+            transform $transicao,
+            color $transicao;
+    }
+
+    // sobe quando tem texto (classe vinda do React) ou quando está focado
+    .custom-input-label.shrink,
+    .custom-input:focus ~ .custom-input-label {
+        transform: translateY(-9px) scale(0.72);
+        color: $verde-400;
+    }
+}

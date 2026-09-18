@@ -1,0 +1,46 @@
+// ---- Base escura ----
+$fundo: #040706;
+$fundo-2: #070c0a;
+
+// ---- Verde (acento) ----
+$verde-300: #6ee7b7;
+$verde-400: #34d399;
+$verde-500: #10b981;
+$verde-600: #059669;
+$verde-700: #047857;
+
+$rosa: #fb7185; // ação destrutiva
+
+// ---- Texto ----
+$texto: #e7f0ec;
+$texto-suave: #93a9a1;
+$texto-fraco: #5e7369;
+
+// ---- Superfícies ----
+$superficie: rgba(255, 255, 255, 0.025);
+$superficie-2: rgba(255, 255, 255, 0.02);
+$superficie-hover: rgba(52, 211, 153, 0.06);
+$borda: rgba(255, 255, 255, 0.07);
+$borda-verde: rgba(52, 211, 153, 0.35);
+
+// ---- Formas ----
+$raio-sm: 8px;
+$raio: 14px;
+$raio-lg: 22px;
+
+// ---- Sombras e brilhos ----
+$sombra: 0 24px 60px -24px rgba(0, 0, 0, 0.9);
+$brilho-suave: 0 0 0 4px rgba(16, 185, 129, 0.12);
+$brilho-forte: 0 0 22px -4px rgba(16, 185, 129, 0.6);
+
+// ---- Tipografia ----
+$fonte:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
+// ---- Transição ----
+$transicao: 0.22s cubic-bezier(0.4, 0, 0.2, 1);

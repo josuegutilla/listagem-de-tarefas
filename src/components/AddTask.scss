@@ -1,0 +1,58 @@
+@use "../styles/variables" as *;
+
+.add-task-container {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 24px;
+
+    .input-container {
+        flex: 1;
+    }
+
+    // pronto para quando você adicionar o botão
+    .add-task-button {
+        flex-shrink: 0;
+        padding: 0 24px;
+        border: none;
+        border-radius: $raio;
+        background: linear-gradient(135deg, $verde-400, $verde-600);
+        color: $fundo;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        cursor: pointer;
+        transition:
+            filter $transicao,
+            transform $transicao,
+            box-shadow $transicao;
+
+        &:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 10px 26px -10px rgba(16, 185, 129, 0.85);
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+
+        &:disabled {
+            filter: grayscale(0.7);
+            opacity: 0.45;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .add-task-container {
+        flex-direction: column;
+
+        .add-task-button {
+            padding: 14px 24px;
+        }
+    }
+}

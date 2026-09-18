@@ -1,51 +1,85 @@
-// paleta (mesma família do fundo #00171f)
-$cor-texto: #e6f1f5;
-$cor-texto-fraco: #8aa4ad;
-$cor-destaque: #00a8e8;
-$cor-card: rgba(255, 255, 255, 0.05);
-$cor-borda: rgba(255, 255, 255, 0.12);
+@use "../styles/variables" as *;
 
 .task-item-container {
-    background: $cor-card;
-    border: 1px solid $cor-borda;
-    border-radius: 10px;
-    padding: 14px 16px;
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 16px;
+    border: 1px solid $borda;
+    border-radius: $raio;
+    background: $superficie-2;
+    overflow: hidden;
+    animation: aparecer 0.32s ease both;
     transition:
-        border-color 0.2s,
-        background 0.2s;
+        background $transicao,
+        border-color $transicao,
+        transform $transicao,
+        opacity $transicao,
+        box-shadow $transicao;
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.07);
+    // faixa verde que cresce na lateral esquerda no hover
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, $verde-300, $verde-600);
+        transform: scaleY(0);
+        transition: transform $transicao;
     }
 
-    // espaçamento entre itens consecutivos
-    & + .task-item-container {
-        margin-top: 8px;
+    &:hover {
+        background: $superficie-hover;
+        border-color: $borda-verde;
+        transform: translateX(3px);
+        box-shadow: 0 8px 28px -14px rgba(16, 185, 129, 0.55);
+
+        &::before {
+            transform: scaleY(1);
+        }
+
+        .delete-icon {
+            opacity: 1;
+        }
+    }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 .task-description {
-    display: flex;
-    align-items: center;
+    flex: 1;
+    min-width: 0; // permite o texto truncar dentro do flex
 }
 
-// ---- label (área clicável inteira) ----
+// ---- label / área clicável ----
 .checkbox-container,
 .checkbox-container-completed {
     position: relative;
     display: block;
-    width: 100%;
-    padding-left: 34px; // espaço reservado para a caixinha desenhada
+    padding-left: 34px;
     font-size: 15px;
     line-height: 22px;
-    color: $cor-texto;
+    letter-spacing: -0.01em;
+    color: $texto;
     cursor: pointer;
     user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color $transicao;
 
-    // esconde o checkbox nativo sem tirar o comportamento dele
     input[type="checkbox"] {
         position: absolute;
         opacity: 0;
@@ -55,11 +89,12 @@ $cor-borda: rgba(255, 255, 255, 0.12);
 }
 
 .checkbox-container-completed {
-    color: $cor-texto-fraco;
+    color: $texto-fraco;
     text-decoration: line-through;
+    text-decoration-color: rgba(94, 115, 105, 0.7);
 }
 
-// ---- a caixinha desenhada ----
+// ---- caixinha desenhada ----
 .checkmark,
 .checkmark-completed {
     position: absolute;
@@ -67,48 +102,75 @@ $cor-borda: rgba(255, 255, 255, 0.12);
     left: 0;
     width: 22px;
     height: 22px;
-    border: 2px solid $cor-borda;
-    border-radius: 6px;
-    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.16);
+    border-radius: 7px;
     transition:
-        background 0.2s,
-        border-color 0.2s;
+        background $transicao,
+        border-color $transicao,
+        box-shadow $transicao;
 
-    // o "tick": dois lados de uma borda, girados 45°
     &::after {
         content: "";
         position: absolute;
-        display: none;
         left: 6px;
         top: 2px;
         width: 5px;
         height: 10px;
-        border: solid #001b24;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
+        border: solid $fundo;
+        border-width: 0 2.5px 2.5px 0;
+        transform: rotate(45deg) scale(0);
+        transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 }
 
-// hover: destaca a borda da caixinha
 .checkbox-container:hover .checkmark,
 .checkbox-container-completed:hover .checkmark-completed {
-    border-color: $cor-destaque;
+    border-color: $verde-400;
+    box-shadow: $brilho-suave;
 }
 
-// marcado: preenche e mostra o tick
 .checkbox-container input:checked ~ .checkmark,
 .checkbox-container-completed input:checked ~ .checkmark-completed {
-    background: $cor-destaque;
-    border-color: $cor-destaque;
+    background: linear-gradient(135deg, $verde-300, $verde-600);
+    border-color: transparent;
+    box-shadow: $brilho-forte;
 
     &::after {
-        display: block;
+        transform: rotate(45deg) scale(1);
     }
 }
 
-// navegação por teclado (acessibilidade)
 .checkbox-container input:focus-visible ~ .checkmark,
 .checkbox-container-completed input:focus-visible ~ .checkmark-completed {
-    outline: 2px solid $cor-destaque;
+    outline: 2px solid $verde-400;
     outline-offset: 3px;
+}
+
+// ---- excluir ----
+.delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: $raio-sm;
+    cursor: pointer;
+    transition: background $transicao;
+
+    &:hover {
+        background: rgba(251, 113, 133, 0.13);
+    }
+
+    .delete-icon {
+        opacity: 0.3;
+        transition:
+            opacity $transicao,
+            transform $transicao;
+    }
+
+    &:hover .delete-icon {
+        opacity: 1;
+        transform: scale(1.15);
+    }
 }
