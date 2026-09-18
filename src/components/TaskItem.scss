@@ -1,0 +1,114 @@
+// paleta (mesma família do fundo #00171f)
+$cor-texto: #e6f1f5;
+$cor-texto-fraco: #8aa4ad;
+$cor-destaque: #00a8e8;
+$cor-card: rgba(255, 255, 255, 0.05);
+$cor-borda: rgba(255, 255, 255, 0.12);
+
+.task-item-container {
+    background: $cor-card;
+    border: 1px solid $cor-borda;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    // espaçamento entre itens consecutivos
+    & + .task-item-container {
+        margin-top: 8px;
+    }
+}
+
+.task-description {
+    display: flex;
+    align-items: center;
+}
+
+// ---- label (área clicável inteira) ----
+.checkbox-container,
+.checkbox-container-completed {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-left: 34px; // espaço reservado para a caixinha desenhada
+    font-size: 15px;
+    line-height: 22px;
+    color: $cor-texto;
+    cursor: pointer;
+    user-select: none;
+
+    // esconde o checkbox nativo sem tirar o comportamento dele
+    input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}
+
+.checkbox-container-completed {
+    color: $cor-texto-fraco;
+    text-decoration: line-through;
+}
+
+// ---- a caixinha desenhada ----
+.checkmark,
+.checkmark-completed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid $cor-borda;
+    border-radius: 6px;
+    background: transparent;
+    transition:
+        background 0.2s,
+        border-color 0.2s;
+
+    // o "tick": dois lados de uma borda, girados 45°
+    &::after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid #001b24;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+}
+
+// hover: destaca a borda da caixinha
+.checkbox-container:hover .checkmark,
+.checkbox-container-completed:hover .checkmark-completed {
+    border-color: $cor-destaque;
+}
+
+// marcado: preenche e mostra o tick
+.checkbox-container input:checked ~ .checkmark,
+.checkbox-container-completed input:checked ~ .checkmark-completed {
+    background: $cor-destaque;
+    border-color: $cor-destaque;
+
+    &::after {
+        display: block;
+    }
+}
+
+// navegação por teclado (acessibilidade)
+.checkbox-container input:focus-visible ~ .checkmark,
+.checkbox-container-completed input:focus-visible ~ .checkmark-completed {
+    outline: 2px solid $cor-destaque;
+    outline-offset: 3px;
+}
