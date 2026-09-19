@@ -1,14 +1,16 @@
-import Task from "./components/Tasks";
-import Sidebar from "./components/Sidebar";
+import { Routes, Route } from "react-router";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 import "./App.scss";
 
 function App() {
     return (
-        <>
-            <Sidebar />
-            <Task />
-        </>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+        </Routes>
     );
 }
 export default App;
