@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -22,6 +22,18 @@ function Task() {
         }
     };
 
+    // useMemo para memorizar o resultado da filtragem das tarefas não concluídas, evitando recalcular a cada renderização
+    // é chamado sempre que o estado "tasks" mudar. exemplo: adição de nova tarefa, garantindo que a lista de tarefas seja atualizada corretamente
+    const lastTasks = useMemo(() => {
+        // filtra as tarefas não concluídas e retorna
+        return tasks.filter((task) => !task.concluida);
+    }, [tasks]);
+
+    const completedTasks = useMemo(() => {
+        // filtra as tarefas concluídas e retorna
+        return tasks.filter((task) => task.concluida);
+    }, [tasks]);
+
     // useEffect para buscar as tarefas ao montar o componente
     useEffect(() => {
         fetchTasks(); // busca as tarefas ao montar o componente
@@ -36,30 +48,26 @@ function Task() {
                 {/* passa a função fetchTasks como prop para o componente AddTask, permitindo que ele atualize a lista de tarefas após adicionar uma nova tarefa */}
                 <AddTask getTasks={fetchTasks} />
                 <div className="task-list">
-                    {tasks // filtra as tarefas não concluídas e mapeia para renderizar o componente TaskItem7
-                        .filter((task) => task.concluida === false)
-                        .map((lastTask) => (
-                            <TaskItem
-                                key={lastTask.id}
-                                task={lastTask}
-                                fetchTasks={fetchTasks}
-                            /> // renderiza o componente TaskItem para cada tarefa não concluída
-                        ))}
+                    {lastTasks.map((lastTask) => (
+                        <TaskItem
+                            key={lastTask.id}
+                            task={lastTask}
+                            fetchTasks={fetchTasks}
+                        /> // renderiza o componente TaskItem para cada tarefa não concluída
+                    ))}
                 </div>
             </div>
 
             <div className="completed-tasks">
                 <h3>Tarefas Concluídas</h3>
                 <div className="task-list">
-                    {tasks
-                        .filter((task) => task.concluida)
-                        .map((completedTask) => (
-                            <TaskItem
-                                key={completedTask.id}
-                                task={completedTask}
-                                fetchTasks={fetchTasks}
-                            />
-                        ))}
+                    {completedTasks.map((completedTask) => (
+                        <TaskItem
+                            key={completedTask.id}
+                            task={completedTask}
+                            fetchTasks={fetchTasks}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
