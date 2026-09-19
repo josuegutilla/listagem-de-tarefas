@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -10,17 +10,17 @@ import AddTask from "./AddTask";
 function Task() {
     const [tasks, setTask] = useState([]);
 
-    const fetchTasks = async () => {
+    const fetchTasks = useCallback(async () => {
         try {
             // faz uma requisição GET para a API para buscar as tarefas
             const { data } = await axios.get(
                 "http://localhost:5220/api/tarefas",
             );
             setTask(data); // atualiza o (ESTADO) com as tarefas recebidas da API
-        } catch (_error) {
+        } catch {
             toast.error("Erro ao buscar tarefas!"); // exibe uma notificação de erro caso a requisição falhe
         }
-    };
+    }, []);
 
     // useMemo para memorizar o resultado da filtragem das tarefas não concluídas, evitando recalcular a cada renderização
     // é chamado sempre que o estado "tasks" mudar. exemplo: adição de nova tarefa, garantindo que a lista de tarefas seja atualizada corretamente
@@ -37,7 +37,7 @@ function Task() {
     // useEffect para buscar as tarefas ao montar o componente
     useEffect(() => {
         fetchTasks(); // busca as tarefas ao montar o componente
-    }, []);
+    }, [fetchTasks]);
 
     return (
         <div className="tasks-container">
