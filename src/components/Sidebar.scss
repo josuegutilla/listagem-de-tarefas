@@ -1,0 +1,60 @@
+@use "../styles/variables" as *;
+
+.sidebar-container {
+    // fixa na lateral esquerda, ocupando a altura toda da janela
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    width: 248px;
+    height: 100vh;
+    padding: 28px 20px;
+
+    background: rgba(4, 7, 6, 0.72);
+    border-right: 1px solid $borda;
+    backdrop-filter: blur(16px);
+
+    // fio de luz verde na borda direita
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+            180deg,
+            transparent,
+            rgba(52, 211, 153, 0.35),
+            transparent
+        );
+    }
+
+    // empurra o botão de sair para o final da coluna
+    .sidebar-footer {
+        margin-top: auto;
+
+        .custom-button-container {
+            width: 100%;
+        }
+    }
+}
+
+// em telas estreitas a barra encolhe e fica só com o ícone
+@media (max-width: 860px) {
+    .sidebar-container {
+        width: 72px;
+        padding: 20px 12px;
+
+        .sidebar-footer .custom-button-container {
+            padding: 14px 0;
+        }
+
+        .sidebar-button-label {
+            display: none;
+        }
+    }
+}
