@@ -43,6 +43,7 @@ const AddTask = ({ getTasks }) => {
                 label="Adicionar tarefa..."
                 value={task}
                 onChange={onChange}
+                onEnterPress={handleAddTask}
             />
 
             <CustomButton onclick={handleAddTask}>
