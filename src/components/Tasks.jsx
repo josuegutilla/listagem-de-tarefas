@@ -17,8 +17,8 @@ function Task() {
                 "http://localhost:5220/api/tarefas",
             );
             setTask(data); // atualiza o (ESTADO) com as tarefas recebidas da API
-        } catch (error) {
-            console.log(error);
+        } catch (_error) {
+            toast.error("Erro ao buscar tarefas!"); // exibe uma notificação de erro caso a requisição falhe
         }
     };
 
