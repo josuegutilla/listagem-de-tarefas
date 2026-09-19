@@ -1,21 +1,22 @@
 @use "../styles/variables" as *;
 
-// A sidebar é fixa, então o conteúdo precisa de um recuo do tamanho dela
-// para não ficar escondido embaixo. É aqui que o layout da app se adapta.
-body {
+.home-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    // a sidebar é fixa, então o conteúdo precisa de um recuo do tamanho dela
     padding-left: $sidebar-largura;
 }
 
 // tablet: a sidebar encolhe para só ícones
 @media (max-width: $bp-tablet) {
-    body {
+    .home-container {
         padding-left: $sidebar-compacta;
     }
 }
 
-// celular: a sidebar vira uma barra na parte de baixo
+// celular: a sidebar vira barra no rodapé
 @media (max-width: $bp-mobile) {
-    body {
+    .home-container {
         padding-left: 0;
         padding-bottom: calc(#{$sidebar-altura-mobile} + 16px);
     }

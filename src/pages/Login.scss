@@ -1,0 +1,86 @@
+@use "../styles/variables" as *;
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 24px;
+}
+
+.login-card {
+    position: relative;
+    overflow: hidden;
+    width: min(100%, 420px);
+    padding: clamp(26px, 5vw, 40px);
+    border: 1px solid $borda;
+    border-radius: $raio-lg;
+    background: $superficie;
+    backdrop-filter: blur(16px);
+    box-shadow: $sombra;
+
+    // fio de luz na borda superior, igual aos cartões de tarefas
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(52, 211, 153, 0.55),
+            transparent
+        );
+    }
+}
+
+.login-header {
+    margin-bottom: 28px;
+
+    h1 {
+        font-size: clamp(22px, 4vw, 28px);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        background: linear-gradient(115deg, $texto 25%, $verde-400 105%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    p {
+        margin-top: 8px;
+        font-size: 14px;
+        color: $texto-suave;
+    }
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    // o botão ocupa a largura toda do cartão
+    .custom-button-container {
+        width: 100%;
+        margin-top: 6px;
+    }
+}
+
+.login-rodape {
+    margin-top: 26px;
+    text-align: center;
+    font-size: 13px;
+    color: $texto-fraco;
+
+    span {
+        color: $verde-400;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
