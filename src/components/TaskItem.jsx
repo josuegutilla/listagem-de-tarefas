@@ -18,6 +18,21 @@ const TaskItem = ({ task, fetchTasks }) => {
         }
     };
 
+    const handleToggleTask = async (task) => {
+        try {
+            await axios.patch(
+                `http://localhost:5220/api/tarefas/${task.id}/concluir`,
+            );
+
+            fetchTasks();
+            toast.success(
+                `Tarefa ${task.concluida ? "marcada como não concluída" : "concluída"} com sucesso!`,
+            );
+        } catch (error) {
+            toast.error("Erro ao atualizar tarefa!");
+        }
+    };
+
     return (
         <div className="task-item-container">
             <div className="task-description">
@@ -29,7 +44,11 @@ const TaskItem = ({ task, fetchTasks }) => {
                     }
                 >
                     {task.titulo}
-                    <input type="checkbox" defaultChecked={task.concluida} />
+                    <input
+                        type="checkbox"
+                        defaultChecked={task.concluida}
+                        onChange={() => handleToggleTask(task)}
+                    />
                     <span
                         className={
                             task.concluida ? "checkmark-completed" : "checkmark"
