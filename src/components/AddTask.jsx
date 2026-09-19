@@ -8,26 +8,31 @@ import CustomButton from "./CustomButton";
 
 import "./AddTask.scss";
 
-const AddTask = () => {
+const AddTask = ({ getTasks }) => {
     const [task, setTask] = useState("");
 
+    // função para atualizar o estado da tarefa conforme o usuário digita no input
     function onChange(e) {
         setTask(e.target.value);
     }
 
+    // função assíncrona para lidar com a adição de uma nova tarefa
     async function handleAddTask() {
         try {
+            // verifica se o campo de tarefa está vazio
             if (task.length === 0) {
                 return toast.error("Digite uma tarefa!");
             }
 
+            // faz uma requisição POST para a API para adicionar a nova tarefa
             await axios.post("http://localhost:5220/api/tarefas", {
                 titulo: task,
             });
 
+            getTasks(); // atualiza a lista de tarefas
+            setTask(""); // limpa o input
             toast.success("Tarefa adicionada com sucesso!");
-        } catch (error) {
-            console.log(error);
+        } catch {
             toast.error("Erro ao adicionar tarefa!");
         }
     }

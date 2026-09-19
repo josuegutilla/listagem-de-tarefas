@@ -11,18 +11,19 @@ function Task() {
 
     const fetchTasks = async () => {
         try {
+            // faz uma requisição GET para a API para buscar as tarefas
             const { data } = await axios.get(
                 "http://localhost:5220/api/tarefas",
             );
-            setTask(data);
+            setTask(data); // atualiza o estado com as tarefas recebidas da API
         } catch (error) {
             console.log(error);
         }
     };
 
-    // useEffect com [] para iniciar no inicio da criação do componente;
+    // useEffect para buscar as tarefas ao montar o componente
     useEffect(() => {
-        fetchTasks();
+        fetchTasks(); // busca as tarefas ao montar o componente
     }, []);
 
     return (
@@ -31,14 +32,13 @@ function Task() {
 
             <div className="last-tasks">
                 <h3>Últimas Tarefas</h3>
-
-                <AddTask />
-
+                {/* passa a função fetchTasks como prop para o componente AddTask, permitindo que ele atualize a lista de tarefas após adicionar uma nova tarefa */}
+                <AddTask getTasks={fetchTasks} />{" "}
                 <div className="task-list">
-                    {tasks
+                    {tasks // filtra as tarefas não concluídas e mapeia para renderizar o componente TaskItem
                         .filter((task) => task.concluida === false)
                         .map((lastTask) => (
-                            <TaskItem key={lastTask.id} task={lastTask} />
+                            <TaskItem key={lastTask.id} task={lastTask} /> // renderiza o componente TaskItem para cada tarefa não concluída
                         ))}
                 </div>
             </div>
