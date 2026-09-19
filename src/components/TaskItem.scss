@@ -31,18 +31,21 @@
         transition: transform $transicao;
     }
 
-    &:hover {
-        background: $superficie-hover;
-        border-color: $borda-verde;
-        transform: translateX(3px);
-        box-shadow: 0 8px 28px -14px rgba(16, 185, 129, 0.55);
+    // efeitos de hover só em aparelhos com mouse de verdade
+    @media (hover: hover) {
+        &:hover {
+            background: $superficie-hover;
+            border-color: $borda-verde;
+            transform: translateX(3px);
+            box-shadow: 0 8px 28px -14px rgba(16, 185, 129, 0.55);
 
-        &::before {
-            transform: scaleY(1);
-        }
+            &::before {
+                transform: scaleY(1);
+            }
 
-        .delete-icon {
-            opacity: 1;
+            .delete-icon {
+                opacity: 1;
+            }
         }
     }
 }
@@ -172,5 +175,32 @@
     &:hover .delete-icon {
         opacity: 1;
         transform: scale(1.15);
+    }
+}
+
+// ---- telas de toque ----
+@media (pointer: coarse) {
+    // sem hover, o ícone de excluir precisa nascer visível
+    .delete {
+        width: 40px;
+        height: 40px;
+
+        .delete-icon {
+            opacity: 0.85;
+        }
+    }
+}
+
+// ---- celular ----
+@media (max-width: $bp-mobile) {
+    .task-item-container {
+        gap: 10px;
+        padding: 13px 12px;
+    }
+
+    .checkbox-container,
+    .checkbox-container-completed {
+        padding-left: 32px;
+        font-size: 14px;
     }
 }

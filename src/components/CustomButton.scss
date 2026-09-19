@@ -47,12 +47,17 @@
         transition: left 0.55s ease;
     }
 
-    &:hover {
-        filter: brightness(1.08);
-        box-shadow: 0 10px 26px -10px rgba(16, 185, 129, 0.85);
+    // não deixa o botão estourar a largura do pai em telas pequenas
+    max-width: 100%;
 
-        &::after {
-            left: 120%;
+    @media (hover: hover) {
+        &:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 10px 26px -10px rgba(16, 185, 129, 0.85);
+
+            &::after {
+                left: 120%;
+            }
         }
     }
 

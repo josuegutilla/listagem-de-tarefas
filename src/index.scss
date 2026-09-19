@@ -8,8 +8,14 @@
     box-sizing: border-box;
 }
 
+html {
+    // impede o ajuste automático de fonte na rotação do celular
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     min-height: 100vh;
+    min-height: 100dvh;
     font-family: $fonte;
     color: $texto;
     background-color: $fundo;

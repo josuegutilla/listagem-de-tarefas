@@ -9,8 +9,9 @@
 
     display: flex;
     flex-direction: column;
-    width: 248px;
+    width: $sidebar-largura;
     height: 100vh;
+    height: 100dvh; // acompanha a barra de endereço no celular
     padding: 28px 20px;
 
     background: rgba(4, 7, 6, 0.72);
@@ -43,10 +44,10 @@
     }
 }
 
-// em telas estreitas a barra encolhe e fica só com o ícone
-@media (max-width: 860px) {
+// ---- tablet: barra estreita, só com o ícone ----
+@media (max-width: $bp-tablet) and (min-width: #{$bp-mobile + 1px}) {
     .sidebar-container {
-        width: 72px;
+        width: $sidebar-compacta;
         padding: 20px 12px;
 
         .sidebar-footer .custom-button-container {
@@ -55,6 +56,51 @@
 
         .sidebar-button-label {
             display: none;
+        }
+    }
+}
+
+// ---- celular: vira uma barra horizontal no rodapé ----
+@media (max-width: $bp-mobile) {
+    .sidebar-container {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        min-height: $sidebar-altura-mobile;
+        padding: 12px 16px;
+        // respeita a área segura do iPhone
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+        border-right: none;
+        border-top: 1px solid $borda;
+
+        // o fio de luz muda para a borda de cima
+        &::after {
+            top: 0;
+            right: 0;
+            bottom: auto;
+            left: 0;
+            width: auto;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(52, 211, 153, 0.35),
+                transparent
+            );
+        }
+
+        .sidebar-footer {
+            margin-top: 0;
+            margin-left: auto; // joga o botão para a direita da barra
+
+            .custom-button-container {
+                width: auto;
+                padding: 12px 20px;
+            }
         }
     }
 }

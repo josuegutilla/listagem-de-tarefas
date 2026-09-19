@@ -1,5 +1,4 @@
 import { FiLogOut } from "react-icons/fi";
-
 import CustomButton from "./CustomButton";
 
 import "./Sidebar.scss";

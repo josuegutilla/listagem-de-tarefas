@@ -9,50 +9,24 @@
 
     .input-container {
         flex: 1;
+        min-width: 0; // deixa o input encolher dentro do flex
     }
 
-    // pronto para quando você adicionar o botão
-    .add-task-button {
+    // o botão não encolhe junto com o campo
+    .custom-button-container {
         flex-shrink: 0;
-        padding: 0 24px;
-        border: none;
-        border-radius: $raio;
-        background: linear-gradient(135deg, $verde-400, $verde-600);
-        color: $fundo;
-        font-family: inherit;
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        cursor: pointer;
-        transition:
-            filter $transicao,
-            transform $transicao,
-            box-shadow $transicao;
-
-        &:hover {
-            filter: brightness(1.08);
-            box-shadow: 0 10px 26px -10px rgba(16, 185, 129, 0.85);
-        }
-
-        &:active {
-            transform: translateY(1px);
-        }
-
-        &:disabled {
-            filter: grayscale(0.7);
-            opacity: 0.45;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
     }
 }
 
-@media (max-width: 640px) {
+// celular: campo e botão empilhados, ocupando a linha inteira
+@media (max-width: $bp-mobile) {
     .add-task-container {
         flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
 
-        .add-task-button {
-            padding: 14px 24px;
+        .custom-button-container {
+            width: 100%;
         }
     }
 }

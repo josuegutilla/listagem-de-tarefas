@@ -3,13 +3,13 @@
 .tasks-container {
     width: min(100%, 680px);
     margin: 0 auto;
-    padding: 72px 24px 88px;
+    padding: clamp(32px, 6vw, 72px) clamp(16px, 3vw, 24px) clamp(48px, 8vw, 88px);
     display: flex;
     flex-direction: column;
     gap: 24px;
 
     > h2 {
-        font-size: 34px;
+        font-size: clamp(24px, 5vw, 34px);
         font-weight: 700;
         letter-spacing: -0.035em;
         background: linear-gradient(115deg, $texto 25%, $verde-400 105%);
@@ -23,7 +23,7 @@
 .completed-tasks {
     position: relative;
     overflow: hidden;
-    padding: 26px;
+    padding: clamp(18px, 3vw, 26px);
     border: 1px solid $borda;
     border-radius: $raio-lg;
     background: $superficie;
@@ -73,7 +73,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        max-height: 330px;
+        max-height: min(330px, 40vh);
         overflow-y: auto;
         padding-right: 6px;
 
@@ -133,19 +133,13 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: $bp-mobile) {
     .tasks-container {
-        padding: 40px 16px 60px;
         gap: 16px;
-
-        > h2 {
-            font-size: 27px;
-        }
     }
 
     .last-tasks,
     .completed-tasks {
-        padding: 18px 16px;
         border-radius: $raio;
     }
 }

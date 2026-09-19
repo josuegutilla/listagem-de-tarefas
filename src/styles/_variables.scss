@@ -44,3 +44,12 @@ $fonte:
 
 // ---- Transição ----
 $transicao: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ---- Breakpoints ----
+$bp-mobile: 640px;
+$bp-tablet: 860px;
+
+// ---- Medidas da sidebar ----
+$sidebar-largura: 248px;
+$sidebar-compacta: 72px;
+$sidebar-altura-mobile: 68px;

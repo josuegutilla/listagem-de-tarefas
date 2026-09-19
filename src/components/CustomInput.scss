@@ -52,3 +52,14 @@
         color: $verde-400;
     }
 }
+
+// no celular a fonte precisa ter ao menos 16px, senão o iOS
+// dá zoom automático toda vez que o campo recebe foco
+@media (max-width: $bp-mobile) {
+    .input-container {
+        .custom-input,
+        .custom-input-label {
+            font-size: 16px;
+        }
+    }
+}
