@@ -1,6 +1,5 @@
-import "./TaskItem.scss";
-
 import { AiFillDelete } from "react-icons/ai";
+import "./TaskItem.scss";
 
 const TaskItem = ({ task }) => {
     return (
