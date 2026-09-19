@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import "./Tasks.scss";
 
@@ -15,7 +16,7 @@ function Task() {
             const { data } = await axios.get(
                 "http://localhost:5220/api/tarefas",
             );
-            setTask(data); // atualiza o estado com as tarefas recebidas da API
+            setTask(data); // atualiza o (ESTADO) com as tarefas recebidas da API
         } catch (error) {
             console.log(error);
         }
@@ -33,9 +34,9 @@ function Task() {
             <div className="last-tasks">
                 <h3>Últimas Tarefas</h3>
                 {/* passa a função fetchTasks como prop para o componente AddTask, permitindo que ele atualize a lista de tarefas após adicionar uma nova tarefa */}
-                <AddTask getTasks={fetchTasks} />{" "}
+                <AddTask getTasks={fetchTasks} />
                 <div className="task-list">
-                    {tasks // filtra as tarefas não concluídas e mapeia para renderizar o componente TaskItem
+                    {tasks // filtra as tarefas não concluídas e mapeia para renderizar o componente TaskItem7
                         .filter((task) => task.concluida === false)
                         .map((lastTask) => (
                             <TaskItem key={lastTask.id} task={lastTask} /> // renderiza o componente TaskItem para cada tarefa não concluída
