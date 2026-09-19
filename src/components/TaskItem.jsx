@@ -1,16 +1,15 @@
-import { AiFillDelete } from "react-icons/ai";
-import axios from "axios";
+import { AiFillDelete } from "react-icons/ai"; // biblioteca para ícones do React
+import axios from "axios"; // biblioteca para fazer requisições HTTP
+import toast from "react-hot-toast"; // biblioteca para exibir notificações (toasts)
 
 import "./TaskItem.scss";
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, fetchTasks }) => {
     const handleDeleteTask = async (task) => {
         // Lógica para deletar a tarefa
         try {
-            const response = await axios.delete(
-                `http://localhost:5220/api/tarefas/${task.id}`,
-            );
-            console.log(response); // exibe a resposta da API no console
+            await axios.delete(`http://localhost:5220/api/tarefas/${task.id}`);
+
             // Atualiza a lista de tarefas após deletar
             fetchTasks();
             toast.success("Tarefa deletada com sucesso!");

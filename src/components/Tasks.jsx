@@ -39,7 +39,11 @@ function Task() {
                     {tasks // filtra as tarefas não concluídas e mapeia para renderizar o componente TaskItem7
                         .filter((task) => task.concluida === false)
                         .map((lastTask) => (
-                            <TaskItem key={lastTask.id} task={lastTask} /> // renderiza o componente TaskItem para cada tarefa não concluída
+                            <TaskItem
+                                key={lastTask.id}
+                                task={lastTask}
+                                fetchTasks={fetchTasks}
+                            /> // renderiza o componente TaskItem para cada tarefa não concluída
                         ))}
                 </div>
             </div>
@@ -53,6 +57,7 @@ function Task() {
                             <TaskItem
                                 key={completedTask.id}
                                 task={completedTask}
+                                fetchTasks={fetchTasks}
                             />
                         ))}
                 </div>
